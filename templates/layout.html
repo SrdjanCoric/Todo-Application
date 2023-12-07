@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Todo App</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/whitespace-reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/application.css') }}">
+    <script src="{{ url_for('static', filename='javascripts/application.js') }}"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Todo Tracker</h1>
+      <div class="actions">
+        {% block header_links %}
+        <!-- Filled in by the `header_links` block from another template file -->
+        {% endblock %}
+      </div>
+    </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">
+            <p>{{message}}</p>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <main>
+      {% block content %}
+      <!-- Filled in by the `content` block from another template file -->
+      {% endblock %}
+    </main>
+  </body>
+</html>

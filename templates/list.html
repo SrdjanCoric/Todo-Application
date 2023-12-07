@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<section id="todos" class="{{ 'complete' if is_list_completed(lst) else '' }}">
+  <header>
+    <h2>{{lst['name']}}</h2>
+    <ul>
+      <li>
+        <form class="complete_all" action="/lists/{{lst['id']}}/complete_all" method="post">
+          <button class="check" type="submit">Complete All</button>
+        </form>
+      </li>
+      <li><a class="edit" href="/lists/{{lst['id']}}/edit">Edit List</a></li>
+    </ul>
+  </header>
+  <ul>
+    {% for todo in todos %}
+      <li class="{{'complete' if todo['completed'] else ''}}">
+          <form action="/lists/{{lst['id']}}/todos/{{todo['id']}}/toggle" method="post" class="check">
+            <input type="hidden" name="completed" value="{{not todo['completed']}}" />
+            <button type="submit">Complete</button>
+          </form>
+          <h3>{{todo['name']}}</h3>
+          <form class="delete" action="/lists/{{lst['id']}}/todos/{{todo['id']}}/delete" method="post" class="delete">
+            <button type="submit">Delete</button>
+          </form>
+      </li>
+    {% endfor %}
+  </ul>
+
+</section>
+
+<form action="/lists/{{lst['id']}}/todos" method="post">
+  <dl>
+    <dt>
+      <label for="todo">Enter a new todo item:</label>
+    </dt>
+    <dd>
+      <input name="todo" id="todo" placeholder="Something to do" type="text" value="">
+    </dd>
+  </dl>
+  <fieldset class="actions">
+    <input type="submit" value="Add">
+  </fieldset>
+</form>
+
+{% endblock %}
+
+{% block header_links %}
+<a class="list" href="/lists">All Lists</a>
+{% endblock %}

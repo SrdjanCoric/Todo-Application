@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<form action="/lists" method="post">
+  <dl>
+    <dt>
+      <label for="list_name">Enter the name for your new list:</label>
+    </dt>
+    <dd>
+      <input type="text" name="list_name" placeholder="List Name" value="{{title}}">
+    </dd>
+  </dl>
+  <fieldset class="actions">
+    <input type="submit" value="Save">
+    <a href="/lists">Cancel</a>
+  </fieldset>
+</form>
+{% endblock %}

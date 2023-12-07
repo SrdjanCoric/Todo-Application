@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <ul id="lists">
+    {% for lst in lists %}
+      <li class="{{ 'complete' if is_list_completed(lst) else '' }}">
+          <a href="/lists/{{lst['id']}}">
+            <h2>{{lst['name']}}</h2>
+            <p>
+              <p>{{todos_remaining(lst)}} / {{lst['todos'] | length}}</p>
+            </p>
+          </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
+
+{% block header_links %}
+  <a class="add" href="/lists/new">New List</a>
+{% endblock %}
+
